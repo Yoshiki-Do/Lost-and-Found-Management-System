@@ -19,7 +19,7 @@ class ItemResponse(BaseModel):
     description: str | None
     found_location: str
     found_at: datetime
-    register_at: datetime
+    registered_at: datetime
     storage_month: str
     storage_box: str
     status: str

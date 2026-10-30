@@ -19,5 +19,29 @@ def create_item(db: Session, item_data: ItemCreate) -> item:
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
-    
+
     return new_item
+
+
+def get_items(db: Session) -> list[Item]:
+    return db.query(Item).order_by(Item.lost_number.desc()).all()
+
+
+def search_items(
+    db: Session,
+    lost_number: int | None = None,
+    item_name: str | None = None,
+    status: str | None = None,
+) -> list[Item]:
+    query = db.query(Item)
+
+    if lost_number is not None:
+        query = query.filter(Item.lost_number == lost_number)
+
+    if item_name:
+        query = query.filter(Item.item_name.ilike(f"%{item_name}%"))
+
+    if status:
+        query = query.filter(Item.status == status)
+
+    return query.order_by(Item.lost_number.desc()).all()

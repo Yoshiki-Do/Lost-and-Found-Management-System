@@ -33,6 +33,7 @@ class Item(Base):
 
     # Retention information
     retention_start_at = Column(DateTime, nullable=True)
+    retention_due_at = Column(DateTime, nullable=True)
 
     # Return information
     returned_at = Column(DateTime, nullable=True)
