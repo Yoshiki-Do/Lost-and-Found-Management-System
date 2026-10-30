@@ -2,7 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas import ItemCreate, ItemResponse
-from app.services.item_service import create_item, get_items, search_items
+from app.services.item_service import (
+    create_item,
+    get_item_by_number,
+    get_items,
+    search_items,
+)
 
 router = APIRouter(prefix="/items", tags=["Items"])
 
@@ -22,3 +27,13 @@ def list_items(
     db: Session = Depends(get_db),
 ):
     return search_items(db, lost_number=lost_number, item_name=item_name, status=status)
+
+
+@router.get("/{lost_number}", response_model=ItemResponse)
+def get_item(lost_number: int, db: Session = Depends(get_db)):
+    item = get_item_by_number(db, lost_number)
+
+    if item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    return item

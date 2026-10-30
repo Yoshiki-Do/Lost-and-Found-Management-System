@@ -23,6 +23,10 @@ def create_item(db: Session, item_data: ItemCreate) -> Item:
     return new_item
 
 
+def get_item_by_number(db: Session, lost_number: int) -> Item | None:
+    return db.query(Item).filter(Item.lost_number == lost_number).first()
+
+
 def get_items(db: Session) -> list[Item]:
     return db.query(Item).order_by(Item.lost_number.desc()).all()
 
