@@ -4,7 +4,7 @@ from app.schemas import ItemCreate
 from app.services.number_service import get_next_lost_number
 
 
-def create_item(db: Session, item_data: ItemCreate) -> item:
+def create_item(db: Session, item_data: ItemCreate) -> Item:
     new_item = Item(
         lost_number=get_next_lost_number(db),
         item_name=item_data.item_name,
