@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.models import Item
 from app.schemas import ItemCreate
 from app.services.number_service import get_next_lost_number
+from datetime import datetime
 
 
 def create_item(db: Session, item_data: ItemCreate) -> Item:
@@ -49,3 +50,39 @@ def search_items(
         query = query.filter(Item.status == status)
 
     return query.order_by(Item.lost_number.desc()).all()
+
+
+def return_item(db: Session, lost_number: int) -> Item | None:
+    item = get_item_by_number(db, lost_number)
+
+    if item is None:
+        return None
+
+    if item.status != "REGISTERED":
+        return None
+
+    item.status = "RETURNED"
+    item.returned_at = datetime.now()
+
+    db.commit()
+    db.refresh(item)
+
+    return item
+
+
+def dispose_item(db: Session, lost_number: int) -> Item | None:
+    item = get_item_by_number(db, lost_number)
+
+    if item is None:
+        return None
+
+    if item.status != "REGISTERED":
+        return None
+
+    item.status = "DISPOSED"
+    item.disposed_at = datetime.now()
+
+    db.commit()
+    db.refresh(item)
+
+    return item
