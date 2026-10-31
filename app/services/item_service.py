@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from app.models import Item
 from app.schemas import ItemCreate
 from app.services.number_service import get_next_lost_number
+from app.services.history_service import create_history
 from datetime import datetime
 
 
@@ -20,6 +21,13 @@ def create_item(db: Session, item_data: ItemCreate) -> Item:
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
+
+    create_history(
+        db,
+        lost_number=new_item.lost_number,
+        action="REGISTERED",
+        description="New item registered",
+    )
 
     return new_item
 
@@ -67,6 +75,13 @@ def return_item(db: Session, lost_number: int) -> Item | None:
     db.commit()
     db.refresh(item)
 
+    create_history(
+        db,
+        lost_number=lost_number,
+        action="RETURNED",
+        description="Item returned to owner",
+    )
+
     return item
 
 
@@ -84,5 +99,9 @@ def dispose_item(db: Session, lost_number: int) -> Item | None:
 
     db.commit()
     db.refresh(item)
+
+    create_history(
+        db, lost_number=lost_number, action="DISPOSED", description="Item disposed"
+    )
 
     return item

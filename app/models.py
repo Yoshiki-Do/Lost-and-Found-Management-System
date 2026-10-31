@@ -40,3 +40,13 @@ class Item(Base):
 
     # Disposal information
     disposed_at = Column(DateTime, nullable=True)
+
+
+class ItemHistory(Base):
+    __tablename__ = "item_histories"
+
+    id = Column(Integer, primary_key=True, index=True)
+    lost_number = Column(Integer, nullable=False, index=True)
+    action = Column(String(20), nullable=False)
+    description = Column(String(200), nullable=True)
+    created_at = Column(DateTime, default=datetime.now(), nullable=False)
