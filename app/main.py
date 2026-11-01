@@ -28,3 +28,8 @@ def read_root():
 @app.get("/dashboard")
 def dashboard_page(request: Request):
     return templates.TemplateResponse(request=request, name="dashboard.html")
+
+
+@app.get("/items")
+def items_page(request: Request):
+    return templates.TemplateResponse(request=request, name="items.html")
