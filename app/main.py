@@ -33,3 +33,8 @@ def dashboard_page(request: Request):
 @app.get("/items")
 def items_page(request: Request):
     return templates.TemplateResponse(request=request, name="items.html")
+
+
+@app.get("/register")
+def register_page(request: Request):
+    return templates.TemplateResponse(request=request, name="register.html")

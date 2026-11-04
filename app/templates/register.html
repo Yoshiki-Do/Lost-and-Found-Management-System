@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register New Item</title>
+</head>
+<body>
+    <h1>Lost and Found Management System</h1>
+
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/items">Items List</a>
+        <a href="/register">Register New Item</a>
+    </nav>
+
+    <h2>Register New Item</h2>
+
+    <form id="register-form">
+
+        <div>
+            <label for="item-name">Item Name</label>
+            <input type="text" id="item-name" name="item_name" maxlength="200" required>
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <textarea type="text" id="description" name="description" maxlength="200"></textarea>
+        </div>
+
+        <div>
+            <label for="found-location">Found Location</label>
+            <input type="text" id="found-location" name="found_location" maxlength="200" required>
+        </div>
+
+        <div>
+            <label for="found-at">Found Date</label>
+            <input type="datetime-local" id="found-at" name="found_at" required>
+        </div>
+
+        <div>
+            <label for="storage-month">Storage Month</label>
+            <input type="month" id="storage-month" name="storage_month" required>
+        </div>
+
+        <div>
+            <label for="storage-box">Storage Box</label>
+            <input type="text" id="storage-box" name="storage_box" maxlength="50" required>
+        </div>
+
+        <button type="submit">Register Item</button>
+    </form>
+
+    <script src="/static/js/register.js"></script>
+</body>
+</html>
