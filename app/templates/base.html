@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Lost and Found Management System{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <header>
+        <h1>Lost and Found Management System</h1>
+
+        <nav>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/items">Items List</a>
+            <a href="/register">Register New Item</a>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

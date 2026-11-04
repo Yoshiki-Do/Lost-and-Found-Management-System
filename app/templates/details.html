@@ -1,92 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item Details</title>
-    <link rel="stylesheet" href="/static/css/details.css">
-</head>
-<body>
-    <h1>Lost and Found Management System</h1>
 
-    <nav>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/items">Items List</a>
-        <a href="/register">Register New Item</a>
-    </nav>
+{% extends "base.html" %}
 
-    <h2>Item Details</h2>
+{% block title %}Item Details{% endblock %}
 
-    <div id="item-details">
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/details.css">
+{% endblock %}
 
-        <p>
-            <strong>Lost Number:</strong>
-            <span id="lost-number"></span>
-        </p>
+{% block content %}
 
-        <p>
-            <strong>Item Name:</strong>
-            <span id="item-name"></span>
-        </p>
+<h2>Item Details</h2>
 
-        <p>
-            <strong>Description:</strong>
-            <span id="description"></span>
-        </p>
+<div id="item-details">
 
-        <p>
-            <strong>Found Location:</strong>
-            <span id="found-location"></span>
-        </p>
+    <p>
+        <strong>Lost Number:</strong>
+        <span id="lost-number"></span>
+    </p>
 
-        <p>
-            <strong>Found Date:</strong>
-            <span id="found-at"></span>
-        </p>
+    <p>
+        <strong>Item Name:</strong>
+        <span id="item-name"></span>
+    </p>
 
-        <p>
-            <strong>Registered Date:</strong>
-            <span id="registered-at"></span>
-        </p>
+    <p>
+        <strong>Description:</strong>
+        <span id="description"></span>
+    </p>
 
-        <p>
-            <strong>Storage Month:</strong>
-            <span id="storage-month"></span>
-        </p>
+    <p>
+        <strong>Found Location:</strong>
+        <span id="found-location"></span>
+    </p>
 
-        <p>
-            <strong>Storage Box:</strong>
-            <span id="storage-box"></span>
-        </p>
+    <p>
+        <strong>Found Date:</strong>
+        <span id="found-at"></span>
+    </p>
 
-        <p>
-            <strong>Status:</strong>
-            <span id="status"></span>
-        </p>
+    <p>
+        <strong>Registered Date:</strong>
+        <span id="registered-at"></span>
+    </p>
 
-        <p>
-            <strong>Retention Start Date:</strong>
-            <span id="retention-start-at"></span>
-        </p>
+    <p>
+        <strong>Storage Month:</strong>
+        <span id="storage-month"></span>
+    </p>
 
-        <p>
-            <strong>Returned Date:</strong>
-            <span id="returned-at"></span>
-        </p>
+    <p>
+        <strong>Storage Box:</strong>
+        <span id="storage-box"></span>
+    </p>
 
-        <p>
-            <strong>Disposed Date:</strong>
-            <span id="disposed-at"></span>
-        </p>
-    </div>
+    <p>
+        <strong>Status:</strong>
+        <span id="status"></span>
+    </p>
 
-    <div id="item-actions">
+    <p>
+        <strong>Retention Start Date:</strong>
+        <span id="retention-start-at"></span>
+    </p>
 
-        <button id="return-button" type="button">Return Item</button>
-        <button id="dispose-button" type="button">Dispose Item</button>
+    <p>
+        <strong>Returned Date:</strong>
+        <span id="returned-at"></span>
+    </p>
 
-    <p id="error-message"></p>
+    <p>
+        <strong>Disposed Date:</strong>
+        <span id="disposed-at"></span>
+    </p>
 
-    <script src="/static/js/details.js"></script>
-</body>
-</html>
+</div>
+
+<div id="item-actions">
+    <button id="return-button" type="button">Return Item</button>
+    <button id="dispose-button" type="button">Dispose Item</button>
+</div>
+
+<p id="error-message"></p>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/details.js"></script>
+{% endblock %}

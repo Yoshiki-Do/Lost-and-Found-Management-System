@@ -1,57 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lost Items</title>
-    <link rel="stylesheet" href="/static/css/items.css">
-</head>
-<body>
-    <h1>Lost and Found Management System</h1>
 
-    <nav>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/items">Items List</a>
-    </nav>
+{% extends "base.html" %}
 
-    <h2>Items List</h2>
+{% block title %}Items List{% endblock %}
 
-    <!--Search area-->
-    <div class="search-container">
-        <input type="number" id="search-lost-number" placeholder="Lost Number">
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/items.css">
+{% endblock %}
 
-        <input type="text" id="search-item-name" placeholder="Item Name">
+{% block content %}
 
-        <select id="search-status">
-            <option value="">All Statuses</option>
-            <option value="REGISTERED">Registered</option>
-            <option value="RETURNED">Returned</option>
-            <option value="DISPOSED">Disposed</option>
-        </select>
+<h2>Items List</h2>
 
-        <button id="search-button">Search</button>
-        <button id="reset-button">Reset</button>
-    </div>
+<!-- Search area -->
+<div class="search-container">
+    <input type="number" id="search-lost-number" placeholder="Lost Number">
 
-    <!--Items table-->
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Lost Number</th>
-                    <th>Item Name</th>
-                    <th>Found Location</th>
-                    <th>Found Date</th>
-                    <th>Storage Box</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+    <input type="text" id="search-item-name" placeholder="Item Name">
 
-            <tbody id="items-table-body">
-            </tbody>
-        </table>
-    </div>
+    <select id="search-status">
+        <option value="">All Statuses</option>
+        <option value="REGISTERED">Registered</option>
+        <option value="RETURNED">Returned</option>
+        <option value="DISPOSED">Disposed</option>
+    </select>
 
-    <script src="/static/js/items.js"></script>
-</body>
-</html>
+    <button id="search-button">Search</button>
+    <button id="reset-button">Reset</button>
+</div>
+
+<!-- Items table -->
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Lost Number</th>
+                <th>Item Name</th>
+                <th>Found Location</th>
+                <th>Found Date</th>
+                <th>Storage Box</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="items-table-body">
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/items.js"></script>
+{% endblock %}

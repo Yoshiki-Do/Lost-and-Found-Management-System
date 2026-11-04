@@ -1,43 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lost and Found Management</title>
-    <link rel="stylesheet" href="/static/css/dashboard.css">
-</head>
-<body>
-    <h1>Lost and Found Management System</h1>
 
-    <nav>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/items">Items List</a>
-    </nav>
+{% extends "base.html" %}
 
-    <h2>Dashboard</h2>
+{% block title %}Dashboard{% endblock %}
 
-    <div class="dashboard-container">
-        <div class="dashboard-card">
-            <h3>Total Items</h3>
-            <p id="total-items">0</p>
-        </div>
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+{% endblock %}
 
-        <div class="dashboard-card">
-            <h3>Registered Items</h3>
-            <p id="registered-items">0</p>
-        </div>
+{% block content %}
+<h2>Dashboard</h2>
 
-        <div class="dashboard-card">
-            <h3>Returned Items</h3>
-            <p id="returned-items">0</p>
-        </div>
-
-        <div class="dashboard-card">
-            <h3>Disposed Items</h3>
-            <p id="disposed-items">0</p>
-        </div>
+<div class="dashboard-container">
+    <div class="dashboard-card">
+        <h3>Total Items</h3>
+        <p id="total-items">0</p>
     </div>
 
-    <script src="/static/js/dashboard.js"></script>
-</body>
-</html>
+    <div class="dashboard-card">
+        <h3>Registered Items</h3>
+        <p id="registered-items">0</p>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>Returned Items</h3>
+        <p id="returned-items">0</p>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>Disposed Items</h3>
+        <p id="disposed-items">0</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}
