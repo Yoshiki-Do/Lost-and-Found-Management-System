@@ -8,7 +8,7 @@ registerForm.addEventListener("submit", async (event) => {
         description: document.getElementById("description").value || null,
         found_location: document.getElementById("found-location").value,
         found_at: document.getElementById("found-at").value,
-        storage_month: document.getElementById("found-at").value,
+        storage_month: document.getElementById("found-at").value.substring(0, 7),
         storage_box: document.getElementById("storage-box").value
     };
 
@@ -26,9 +26,10 @@ registerForm.addEventListener("submit", async (event) => {
 
         const result = await response.json();
 
-        alert(`Item registered successfffully! Lost Number: ${result.lost_number}`);
+        alert(`Item registered successfully! Lost Number: ${result.lost_number}`);
 
-        registerForm.requestFullscreen();
+        registerForm.reset();
+
     } catch (error) {
         console.error("Registration error:", error);
         alert("Failed to register item. Please try again.");
