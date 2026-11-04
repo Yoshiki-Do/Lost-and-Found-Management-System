@@ -42,9 +42,19 @@ async function loadItems() {
                 item.status
             ];
 
-            values.forEach(value => {
+            values.forEach((value, index) => {
                 const cell = document.createElement("td");
-                cell.textContent = value ?? "";
+
+                if (index === 0) {
+                    const link = document.createElement("a");
+                    link.href = `/details/${item.lost_number}`;
+                    link.textContent = value ?? "";
+
+                    cell.appendChild(link);
+                } else {
+                    cell.textContent = value ?? "";
+                }
+
                 row.appendChild(cell);
             });
 

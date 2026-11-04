@@ -38,3 +38,8 @@ def items_page(request: Request):
 @app.get("/register")
 def register_page(request: Request):
     return templates.TemplateResponse(request=request, name="register.html")
+
+
+@app.get("/details/{lost_number}")
+def details_page(lost_number: int, request: Request):
+    return templates.TemplateResponse(request=request, name="details.html")
