@@ -23,3 +23,7 @@ def get_histories(db: Session, lost_number: int) -> list[ItemHistory]:
         .order_by(ItemHistory.created_at.desc())
         .all()
     )
+
+
+def get_all_histories(db: Session) -> list[ItemHistory]:
+    return db.query(ItemHistory).order_by(ItemHistory.created_at.desc()).all()

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}History{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/history.css">
+{% endblock %}
+
+{% block content %}
+
+<h1>History</h1>
+
+<div class="search-container">
+    <input type="number" id="search-lost-number" placeholder="Lost Number" min="1">
+
+    <select id="search-action">
+        <option value="">All Actions</option>
+        <option value="REGISTERED">Registered</option>
+        <option value="RETURNED">Returned</option>
+        <option value="DISPOSED">Disposed</option>
+    </select>
+
+    <button id="search-button">Search</button>
+    <button id="reset-button">Reset</button>
+</div>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Lost Number</th>
+                <th>Action</th>
+                <th>Description</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody id="history-table-body"></tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/history.js"></script>
+{% endblock %}

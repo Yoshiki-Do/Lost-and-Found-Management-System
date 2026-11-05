@@ -48,3 +48,8 @@ def details_page(lost_number: int, request: Request):
 @app.get("/disposal")
 def disposal_page(request: Request):
     return templates.TemplateResponse(request=request, name="disposal.html")
+
+
+@app.get("/history-page")
+def history_page(request: Request):
+    return templates.TemplateResponse(request=request, name="history.html")
