@@ -74,3 +74,15 @@ document.getElementById("reset-button").addEventListener("click", () => {
     
     loadItems();
 });
+
+//Get status from URL
+const urlParams = new URLSearchParams(window.location.search);
+const statusFromUrl = urlParams.get("status");
+
+//Set status filter
+if (statusFromUrl) {
+    document.getElementById("search-status").value = statusFromUrl;
+}
+
+//Load items
+loadItems();

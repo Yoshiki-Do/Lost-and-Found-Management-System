@@ -18,4 +18,18 @@ async function loadDashboard() {
     }
 }
 
+const dashboardCards = document.querySelectorAll(".dashboard-card");
+
+dashboardCards.forEach(card => {
+    card.addEventListener("click", () => {
+        const status = card.dataset.status;
+
+        if (status) {
+            window.location.href = `/items?status=${status}`;
+        } else {
+            window.location.href = "/items";
+        }
+    });
+});
+
 loadDashboard();
