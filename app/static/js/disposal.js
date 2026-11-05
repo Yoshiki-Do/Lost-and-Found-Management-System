@@ -1,3 +1,15 @@
+function isEligibleForDisposal(storageMonth) {
+    const [year, month] = storageMonth.split("-").map(Number);
+
+    const now = new Date();
+
+    const targetMonthIndex = year * 12 + month;
+    const currentMonthIndex = now.getFullYear() * 12 + (now.getMonth() + 1);
+
+    //Current month and previous two months are not eligible
+    return targetMonthIndex < currentMonthIndex - 2;
+}
+
 async function loadDisposalItems() {
     try {
         const storageMonth = document.getElementById("storage-month").value;
@@ -56,7 +68,10 @@ async function loadDisposalItems() {
         });
 
         itemCount.textContent = items.length;
-        disposeButton.disabled = items.length === 0; 
+
+        const eligible = isEligibleForDisposal(storageMonth);
+
+        disposeButton.disabled = items.length === 0 || !eligible;
 
     } catch (error) {
         console.error("Disposal error:", error);
@@ -86,7 +101,8 @@ document.getElementById("dispose-all-button").addEventListener("click", async ()
         const response = await fetch(`/items/bulk-dispose/${storageMonth}`, {method: "PATCH"});
 
         if (!response.ok) {
-            throw new Error("Failed to dispose items");
+            const errorData = await response.json();
+            throw new Error(errorData.detail || "Failed to dispose items");
         }
 
         const disposedItems = await response.json();
@@ -97,12 +113,16 @@ document.getElementById("dispose-all-button").addEventListener("click", async ()
 
     } catch (error) {
         console.error("Bulk disposal error:", error);
-        alert("Failed to dispose items.");
+        alert(error.message);
     }
 });
 
 document.getElementById("storage-month").addEventListener("change", () => {
+    const storageMonth = document.getElementById("storage-month").value;
+
     document.getElementById("disposal-table-body").innerHTML = "";
     document.getElementById("item-count").textContent = "0";
-    document.getElementById("dispose-all-button").disabled = true;
+
+    const disposeButton = document.getElementById("dispose-all-button");
+    disposeButton.disabled = true;
 });

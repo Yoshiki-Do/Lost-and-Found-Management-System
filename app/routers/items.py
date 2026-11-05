@@ -79,4 +79,7 @@ def dispose_lost_item(lost_number: int, db: Session = Depends(get_db)):
 # Bulk dispose items by storage month
 @router.patch("/bulk-dispose/{storage_month}", response_model=list[ItemResponse])
 def bulk_dispose_items(storage_month: str, db: Session = Depends(get_db)):
-    return dispose_items_by_month(db, storage_month)
+    try:
+        return dispose_items_by_month(db, storage_month)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))

@@ -112,6 +112,26 @@ def dispose_item(db: Session, lost_number: int) -> Item | None:
 
 
 def dispose_items_by_month(db: Session, storage_month: str) -> list[Item]:
+    now = datetime.now()
+
+    try:
+        year, month = map(int, storage_month.split("-"))
+
+        if month < 1 or month > 12:
+            raise ValueError
+
+        target_month_index = year * 12 + month
+        current_month_index = now.year * 12 + now.month
+
+    except ValueError:
+        raise ValueError("Invalid storage month format")
+
+    # Prevent disposal of items within latest 3 months
+    if target_month_index >= current_month_index - 2:
+        raise ValueError(
+            "Items from the current month and previous two months cannot be disposed"
+        )
+
     items = (
         db.query(Item)
         .filter(
@@ -124,11 +144,9 @@ def dispose_items_by_month(db: Session, storage_month: str) -> list[Item]:
     if not items:
         return []
 
-    disposed_at = datetime.now()
-
     for item in items:
         item.status = "DISPOSED"
-        item.disposed_at = disposed_at
+        item.disposed_at = now
 
         history = ItemHistory(
             lost_number=item.lost_number,
