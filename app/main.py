@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from app.database import Base, engine
 from app.models import Item, ItemHistory
-from app.routers import items, history, dashboard
+from app.routers import items, history, dashboard, backup
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -18,6 +18,7 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.include_router(items.router)
 app.include_router(history.router)
 app.include_router(dashboard.router)
+app.include_router(backup.router)
 
 
 @app.get("/")
@@ -53,3 +54,8 @@ def disposal_page(request: Request):
 @app.get("/history-page")
 def history_page(request: Request):
     return templates.TemplateResponse(request=request, name="history.html")
+
+
+@app.get("/backup-page")
+def backup_page(request: Request):
+    return templates.TemplateResponse(request=request, name="backup.html")

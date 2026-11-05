@@ -1,0 +1,54 @@
+/* Backup / Restore page */
+
+#backup-section,
+#restore-section {
+    max-width: 800px;
+    padding: 25px;
+    margin-bottom: 25px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#backup-section h3,
+#restore-section h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #243447;
+}
+
+#backup-section p,
+#restore-section p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.restore-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#backup-select {
+    min-width: 300px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#backup-message {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .restore-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #backup-select {
+        min-width: 100%;
+    }
+}
