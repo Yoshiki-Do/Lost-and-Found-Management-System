@@ -5,9 +5,15 @@ __pycache__/
 
 # Database
 data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Backup
+backups/
 
 # Environment
 .env
+.env.*
 
 # IDE
 .vscode/
