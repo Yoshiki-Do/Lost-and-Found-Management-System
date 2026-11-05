@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas import ItemCreate, ItemResponse
@@ -11,6 +12,8 @@ from app.services.item_service import (
     dispose_items_by_month,
     search_items,
 )
+import csv
+import io
 
 router = APIRouter(prefix="/items", tags=["Items"])
 
@@ -19,6 +22,65 @@ router = APIRouter(prefix="/items", tags=["Items"])
 @router.post("/", response_model=ItemResponse)
 def register_item(item_data: ItemCreate, db: Session = Depends(get_db)):
     return create_item(db, item_data)
+
+
+# Export items as CSV
+@router.get("/export/csv")
+def export_items_csv(
+    lost_number: int | None = None,
+    item_name: str | None = None,
+    status: str | None = None,
+    storage_month: str | None = None,
+    db: Session = Depends(get_db),
+):
+    items = search_items(
+        db,
+        lost_number=lost_number,
+        item_name=item_name,
+        status=status,
+        storage_month=storage_month,
+    )
+    output = io.StringIO(newline="")
+    writer = csv.writer(output)
+
+    # CSV header
+    writer.writerow(
+        [
+            "Lost Number",
+            "Item Name",
+            "Description",
+            "Found Location",
+            "Found Date",
+            "Storage Month",
+            "Storage Box",
+            "Status",
+        ]
+    )
+
+    # CSV data
+    for item in items:
+        writer.writerow(
+            [
+                item.lost_number,
+                item.item_name,
+                item.description,
+                item.found_location,
+                item.found_at,
+                item.storage_month,
+                item.storage_box,
+                item.status,
+            ]
+        )
+
+    csv_content = "\ufeff" + output.getvalue()
+
+    return StreamingResponse(
+        iter([csv_content]),
+        media_type="text/csv; charset=utf-8",
+        headers={
+            "Content-Disposition": 'attachment; filename="lost_and_found_items.csv"'
+        },
+    )
 
 
 # Get all lost items or search by conditions

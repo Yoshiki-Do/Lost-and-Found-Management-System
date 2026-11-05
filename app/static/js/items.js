@@ -1,3 +1,6 @@
+//Store the last searched conditions
+let searchedParams = new URLSearchParams();
+
 async function loadItems() {
     try {
         const lostNumber = document.getElementById("search-lost-number").value;
@@ -17,6 +20,8 @@ async function loadItems() {
         if (status) {
             params.append("status", status);
         }
+
+        searchedParams = new URLSearchParams(params);
 
         const response = await fetch(`/items/?${params.toString()}`);
 
@@ -86,3 +91,8 @@ if (statusFromUrl) {
 
 //Load items
 loadItems();
+
+//Export items as CSV
+document.getElementById("export-csv-button").addEventListener("click", () => {
+    window.location.href = `/items/export/csv?${searchedParams.toString()}`;
+});
