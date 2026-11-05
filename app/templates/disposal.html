@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Bulk Disposal{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/disposal.css">
+{% endblock %}
+
+{% block content %}
+
+<h2>Bulk Disposal</h2>
+
+<div class="disposal-container">
+
+    <div class="disposal-search">
+        <label for="storage-month">Select Storage Month</label>
+        <input type="month" id="storage-month">
+        
+        <button type="button" id="search-button">Search</button>
+    </div>
+
+    <div class="disposal-summary">
+        <h3>Items to Disposal</h3>
+        <p>
+            Total:
+            <strong id="item-count">0</strong>
+        </p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Lost Number</th>
+                <th>Item Name</th>
+                <th>Found Location</th>
+                <th>Lost Date</th>
+                <th>Storage Box</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="disposal-table-body">
+        </tbody>
+    </table>
+
+    <div class="disposal-actions">
+        <button type="button" id="dispose-all-button" disabled>Dispose All</button>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/disposal.js"></script>
+{% endblock %}

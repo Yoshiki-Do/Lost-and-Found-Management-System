@@ -43,3 +43,8 @@ def register_page(request: Request):
 @app.get("/details/{lost_number}")
 def details_page(lost_number: int, request: Request):
     return templates.TemplateResponse(request=request, name="details.html")
+
+
+@app.get("/disposal")
+def disposal_page(request: Request):
+    return templates.TemplateResponse(request=request, name="disposal.html")

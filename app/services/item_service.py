@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models import Item
+from app.models import Item, ItemHistory
 from app.schemas import ItemCreate
 from app.services.number_service import get_next_lost_number
 from app.services.history_service import create_history
@@ -45,6 +45,7 @@ def search_items(
     lost_number: int | None = None,
     item_name: str | None = None,
     status: str | None = None,
+    storage_month: str | None = None,
 ) -> list[Item]:
     query = db.query(Item)
 
@@ -56,6 +57,9 @@ def search_items(
 
     if status:
         query = query.filter(Item.status == status)
+
+    if storage_month:
+        query = query.filter(Item.storage_month == storage_month)
 
     return query.order_by(Item.lost_number.desc()).all()
 
@@ -105,3 +109,38 @@ def dispose_item(db: Session, lost_number: int) -> Item | None:
     )
 
     return item
+
+
+def dispose_items_by_month(db: Session, storage_month: str) -> list[Item]:
+    items = (
+        db.query(Item)
+        .filter(
+            Item.storage_month == storage_month,
+            Item.status == "REGISTERED",
+        )
+        .all()
+    )
+
+    if not items:
+        return []
+
+    disposed_at = datetime.now()
+
+    for item in items:
+        item.status = "DISPOSED"
+        item.disposed_at = disposed_at
+
+        history = ItemHistory(
+            lost_number=item.lost_number,
+            action="DISPOSED",
+            description=f"Bulk disposal for {storage_month}",
+        )
+
+        db.add(history)
+
+    db.commit()
+
+    for item in items:
+        db.refresh(item)
+
+    return items

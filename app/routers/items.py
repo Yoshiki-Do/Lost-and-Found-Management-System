@@ -8,6 +8,7 @@ from app.services.item_service import (
     get_items,
     return_item,
     dispose_item,
+    dispose_items_by_month,
     search_items,
 )
 
@@ -26,9 +27,16 @@ def list_items(
     lost_number: int | None = None,
     item_name: str | None = None,
     status: str | None = None,
+    storage_month: str | None = None,
     db: Session = Depends(get_db),
 ):
-    return search_items(db, lost_number=lost_number, item_name=item_name, status=status)
+    return search_items(
+        db,
+        lost_number=lost_number,
+        item_name=item_name,
+        status=status,
+        storage_month=storage_month,
+    )
 
 
 # Get a lost item by a lost number
@@ -66,3 +74,9 @@ def dispose_lost_item(lost_number: int, db: Session = Depends(get_db)):
         )
 
     return item
+
+
+# Bulk dispose items by storage month
+@router.patch("/bulk-dispose/{storage_month}", response_model=list[ItemResponse])
+def bulk_dispose_items(storage_month: str, db: Session = Depends(get_db)):
+    return dispose_items_by_month(db, storage_month)
