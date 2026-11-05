@@ -39,20 +39,6 @@
     box-shadow: 0 0 3px rgba(53, 120, 184, 0.3);
 }
 
-.register-button {
-    padding: 11px 22px;
-    background-color: #3578b8;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.register-button:hover {
-    background-color: #286398;
-}
-
 @media (max-width: 600px) {
     .register-form {
         padding: 18px;

@@ -42,6 +42,26 @@ h2 {
     color: #243447;
 }
 
+/* Common buttons */
+button {
+    padding: 10px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #243447;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+    background-color: #354b63;
+}
+
+button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 15px;

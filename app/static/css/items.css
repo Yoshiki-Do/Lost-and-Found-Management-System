@@ -11,28 +11,12 @@
 }
 
 input,
-select,
-button {
+select {
     padding: 10px 12px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-input,
-select {
     min-width: 160px;
-}
-
-button {
-    cursor: pointer;
-    border: none;
-    background-color: #243447;
-    color: white;
-}
-
-button:hover {
-    background-color: #354b63;
 }
 
 #reset-button {
