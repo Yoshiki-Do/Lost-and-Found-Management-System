@@ -1,7 +1,24 @@
 const registerForm = document.getElementById("register-form");
 
+//Automatically set Storage Month from Found Date
+const foundAtInput = document.getElementById("found-at");
+const storageMonthInput = document.getElementById("storage-month");
+
+foundAtInput.addEventListener("change", () => {
+    storageMonthInput.value = foundAtInput.value.substring(0, 7);
+});
+
 registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    const itemName = document.getElementById("item-name").value.trim();
+    const foundLocation = document.getElementById("found-location").value.trim();
+    const storageBox = document.getElementById("storage-box").value.trim();
+
+    if (!itemName || !foundLocation || !storageBox) {
+        alert("Please enter valid values for all required fields.")
+        return;
+    }
 
     const itemData = {
         item_name: document.getElementById("item-name").value,

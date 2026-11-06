@@ -7,6 +7,11 @@ async function loadItems() {
         const itemName = document.getElementById("search-item-name").value;
         const status = document.getElementById("search-status").value;
 
+        if (lostNumber && (!Number.isInteger(Number(lostNumber)) || Number(lostNumber) < 1)) {
+            alert("Lost Number must be a positive integer.");
+            return;
+        }
+
         const params = new URLSearchParams();
 
         if (lostNumber) {
@@ -71,6 +76,17 @@ async function loadItems() {
 }
 
 document.getElementById("search-button").addEventListener("click", loadItems);
+
+//Search when pressing Enter
+document.querySelectorAll(
+    "#search-lost-number, #search-item-name, #search-status"
+).forEach(input => {
+    input.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+            loadItems();
+        }
+    });
+});
 
 document.getElementById("reset-button").addEventListener("click", () => {
     document.getElementById("search-lost-number").value = "";
