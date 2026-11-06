@@ -3,7 +3,7 @@ from app.models import Item, ItemHistory
 from app.schemas import ItemCreate
 from app.services.number_service import get_next_lost_number
 from app.services.history_service import create_history
-from datetime import datetime
+from datetime import date, datetime
 
 
 def create_item(db: Session, item_data: ItemCreate) -> Item:
@@ -46,6 +46,8 @@ def search_items(
     item_name: str | None = None,
     status: str | None = None,
     storage_month: str | None = None,
+    found_date_from: date | None = None,
+    found_date_to: date | None = None,
 ) -> list[Item]:
     query = db.query(Item)
 
@@ -60,6 +62,12 @@ def search_items(
 
     if storage_month:
         query = query.filter(Item.storage_month == storage_month)
+
+    if found_date_from:
+        query = query.filter(Item.found_at >= found_date_from)
+
+    if found_date_to:
+        query = query.filter(Item.found_at <= found_date_to)
 
     return query.order_by(Item.lost_number.desc()).all()
 

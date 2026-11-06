@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Column, Date, DateTime, Integer, String
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -19,7 +19,7 @@ class Item(Base):
 
     # Found information
     found_location = Column(String(200), nullable=False)
-    found_at = Column(DateTime, nullable=False)
+    found_at = Column(Date, nullable=False)
 
     # Registration information
     registered_at = Column(DateTime, default=datetime.now, nullable=False)

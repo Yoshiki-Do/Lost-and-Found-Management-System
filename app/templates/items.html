@@ -13,20 +13,46 @@
 
 <!-- Search area -->
 <div class="search-container">
-    <input type="number" id="search-lost-number" placeholder="Lost Number" min="1" step="1">
 
-    <input type="text" id="search-item-name" placeholder="Item Name">
+    <!-- Search filters -->
+    <div class="search-filters">
 
-    <select id="search-status">
-        <option value="">All Statuses</option>
-        <option value="REGISTERED">Registered</option>
-        <option value="RETURNED">Returned</option>
-        <option value="DISPOSED">Disposed</option>
-    </select>
+        <div class="search-row">
+            <input type="number" id="search-lost-number"
+                   placeholder="Lost Number" min="1" step="1">
 
-    <button id="search-button">Search</button>
-    <button id="reset-button">Reset</button>
-    <button id="export-csv-button">Export CSV</button>
+            <input type="text" id="search-item-name"
+                   placeholder="Item Name">
+
+            <select id="search-status">
+                <option value="">All Statuses</option>
+                <option value="REGISTERED">Registered</option>
+                <option value="RETURNED">Returned</option>
+                <option value="DISPOSED">Disposed</option>
+            </select>
+        </div>
+
+        <div class="search-row">
+            <div class="date-filter">
+                <label for="search-date-from">Found Date From</label>
+                <input type="date" id="search-date-from">
+            </div>
+
+            <div class="date-filter">
+                <label for="search-date-to">Found Date To</label>
+                <input type="date" id="search-date-to">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Action buttons -->
+    <div class="search-actions">
+        <button id="search-button">Search</button>
+        <button id="reset-button">Reset</button>
+        <button id="export-csv-button">Export CSV</button>
+    </div>
+
 </div>
 
 <!-- Items table -->

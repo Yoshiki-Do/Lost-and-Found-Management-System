@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
+from datetime import date
 from app.database import get_db
 from app.schemas import ItemCreate, ItemResponse
 from app.services.item_service import (
@@ -31,6 +32,8 @@ def export_items_csv(
     item_name: str | None = None,
     status: str | None = None,
     storage_month: str | None = None,
+    found_date_from: date | None = None,
+    found_date_to: date | None = None,
     db: Session = Depends(get_db),
 ):
     items = search_items(
@@ -39,6 +42,8 @@ def export_items_csv(
         item_name=item_name,
         status=status,
         storage_month=storage_month,
+        found_date_from=found_date_from,
+        found_date_to=found_date_to,
     )
     output = io.StringIO(newline="")
     writer = csv.writer(output)
@@ -90,6 +95,8 @@ def list_items(
     item_name: str | None = None,
     status: str | None = None,
     storage_month: str | None = None,
+    found_date_from: date | None = None,
+    found_date_to: date | None = None,
     db: Session = Depends(get_db),
 ):
     return search_items(
@@ -98,6 +105,8 @@ def list_items(
         item_name=item_name,
         status=status,
         storage_month=storage_month,
+        found_date_from=found_date_from,
+        found_date_to=found_date_to,
     )
 
 
