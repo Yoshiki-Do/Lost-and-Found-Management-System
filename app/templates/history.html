@@ -11,17 +11,42 @@
 <h1>History</h1>
 
 <div class="search-container">
-    <input type="number" id="search-lost-number" placeholder="Lost Number" min="1">
 
-    <select id="search-action">
-        <option value="">All Actions</option>
-        <option value="REGISTERED">Registered</option>
-        <option value="RETURNED">Returned</option>
-        <option value="DISPOSED">Disposed</option>
-    </select>
+    <!-- Search filters -->
+    <div class="search-filters">
 
-    <button id="search-button">Search</button>
-    <button id="reset-button">Reset</button>
+        <div class="search-row">
+            <input type="number" id="search-lost-number"
+                   placeholder="Lost Number" min="1" step="1">
+
+            <select id="search-action">
+                <option value="">All Actions</option>
+                <option value="REGISTERED">Registered</option>
+                <option value="RETURNED">Returned</option>
+                <option value="DISPOSED">Disposed</option>
+            </select>
+        </div>
+
+        <div class="search-row">
+            <div class="date-filter">
+                <label for="search-date-from">History Date From</label>
+                <input type="date" id="search-date-from">
+            </div>
+
+            <div class="date-filter">
+                <label for="search-date-to">History Date To</label>
+                <input type="date" id="search-date-to">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Action buttons -->
+    <div class="search-actions">
+        <button id="search-button">Search</button>
+        <button id="reset-button">Reset</button>
+    </div>
+
 </div>
 
 <div class="table-container">
