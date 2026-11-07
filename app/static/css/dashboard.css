@@ -36,3 +36,43 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Recent Items */
+.recent-items-container {
+    margin-top: 30px;
+}
+
+.recent-items-container h3 {
+    margin-bottom: 20px;
+    color: #243447;
+}
+
+/* Reuse Items List table design */
+.recent-items-container .table-container {
+    overflow-x: auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.recent-items-container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.recent-items-container th,
+.recent-items-container td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.recent-items-container th {
+    background-color: #243447;
+    color: white;
+    font-weight: normal;
+}
+
+.recent-items-container tbody tr:hover {
+    background-color: #f4f6f9;
+}

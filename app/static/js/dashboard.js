@@ -32,4 +32,50 @@ dashboardCards.forEach(card => {
     });
 });
 
+async function loadRecentItems() {
+    try {
+        const response = await fetch("/dashboard/recent-items");
+
+        if (!response.ok) {
+            throw new Error("Failed to load recent items");
+        }
+
+        const items = await response.json();
+
+        const tableBody = document.getElementById("recent-items-table-body");
+
+        tableBody.innerHTML = "";
+
+        items.forEach(item => {
+            const row = document.createElement("tr");
+
+            row.style.cursor = "pointer";
+
+            row.addEventListener("click", () => {
+                window.location.href = `/details/${item.lost_number}`;
+            });
+
+            const values =[
+                item.lost_number,
+                item.item_name,
+                item.found_location,
+                new Date(item.found_at + "T00:00:00").toLocaleDateString(),
+                item.storage_box,
+                item.status
+            ];
+
+            values.forEach(value => {
+                const cell = document.createElement("td");
+                cell.textContent = value ?? "";
+                row.appendChild(cell);
+            });
+
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Recent items error:", error);
+    }
+}
+
 loadDashboard();
+loadRecentItems();
