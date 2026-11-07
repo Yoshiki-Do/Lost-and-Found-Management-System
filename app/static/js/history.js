@@ -1,4 +1,6 @@
 async function loadHistory() {
+    console.log("loadHistory called");
+    
     try {
         const tableBody = document.getElementById("history-table-body");
 
@@ -104,3 +106,8 @@ document.getElementById("reset-button").addEventListener("click", () => {
 
 //Load all histories when page opens
 document.addEventListener("DOMContentLoaded", loadHistory);
+
+//Reload history whenever the page becomes visible
+window.addEventListener("pageshow", () => {
+    loadHistory();
+});

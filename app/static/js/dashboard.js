@@ -79,3 +79,10 @@ async function loadRecentItems() {
 
 loadDashboard();
 loadRecentItems();
+
+//Reload dashboard whenever the page becomes visible
+window.addEventListener("pageshow", () => {
+    loadDashboard();
+    loadRecentItems();
+});
+

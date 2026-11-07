@@ -127,3 +127,8 @@ loadItems();
 document.getElementById("export-csv-button").addEventListener("click", () => {
     window.location.href = `/items/export/csv?${searchedParams.toString()}`;
 });
+
+//Reload items when returning to this page
+window.addEventListener("pageshow", () => {
+    loadItems();
+ });
