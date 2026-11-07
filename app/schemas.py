@@ -23,8 +23,6 @@ class ItemResponse(BaseModel):
     storage_month: str
     storage_box: str
     status: str
-    retention_start_at: datetime | None
-    retention_due_at: datetime | None
     returned_at: datetime | None
     disposed_at: datetime | None
 

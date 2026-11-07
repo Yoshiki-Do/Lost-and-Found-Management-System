@@ -34,7 +34,6 @@ async function loadItemDetails() {
         document.getElementById("storage-box").textContent = item.storage_box ?? "";
         document.getElementById("status").textContent = item.status ?? "";
         updateActionButtons(item.status);
-        document.getElementById("retention-start-at").textContent = item.retention_start_at ?? "";
         document.getElementById("returned-at").textContent = item.returned_at ?? "";
         document.getElementById("disposed-at").textContent = item.disposed_at ?? "";
     } catch (error) {
