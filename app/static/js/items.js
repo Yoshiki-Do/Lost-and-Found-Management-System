@@ -57,6 +57,12 @@ async function loadItems() {
 
         items.forEach(item => {
             const row = document.createElement("tr");
+            
+            row.style.cursor = "pointer";
+
+            row.addEventListener("click", () => {
+                window.location.href = `/details/${item.lost_number}`;
+            });
 
             const values =[
                 item.lost_number,
@@ -70,15 +76,8 @@ async function loadItems() {
             values.forEach((value, index) => {
                 const cell = document.createElement("td");
 
-                if (index === 0) {
-                    const link = document.createElement("a");
-                    link.href = `/details/${item.lost_number}`;
-                    link.textContent = value ?? "";
-                    cell.appendChild(link);
-                } else {
-                    cell.textContent = value ?? "";
-                }
-
+                cell.textContent = value ?? "";
+                
                 row.appendChild(cell);
             });
 
@@ -93,7 +92,7 @@ document.getElementById("search-button").addEventListener("click", loadItems);
 
 //Search when pressing Enter
 document.querySelectorAll(
-    "#search-lost-number, #search-item-name, #search-status", "#search-date-from", "#search-date-to"
+    "#search-lost-number, #search-item-name, #search-status, #search-date-from, #search-date-to"
 ).forEach(input => {
     input.addEventListener("keydown", event => {
         if (event.key === "Enter") {
