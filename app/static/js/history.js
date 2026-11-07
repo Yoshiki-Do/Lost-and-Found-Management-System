@@ -48,6 +48,12 @@ async function loadHistory() {
         filteredHistories.forEach(history => {
             const row = document.createElement("tr");
 
+            row.style.cursor = "pointer";
+
+            row.addEventListener("click", () => {
+                window.location.href = `/details/${history.lost_number}`;
+            });
+
             const values = [
                 history.lost_number,
                 history.action,
@@ -58,14 +64,7 @@ async function loadHistory() {
             values.forEach((value, index) => {
                 const cell = document.createElement("td");
 
-                if (index === 0) {
-                    const link =document.createElement("a");
-                    link.href = `/details/${history.lost_number}`;
-                    link.textContent = value ?? "";
-                    cell.appendChild(link);
-                } else {
-                    cell.textContent = value ?? "";
-                }
+                cell.textContent = value ?? "";
                 
                 row.appendChild(cell);
             });
