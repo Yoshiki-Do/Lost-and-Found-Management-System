@@ -41,6 +41,11 @@
     font-weight: bold;
 }
 
+/* Back button */
+#back-button {
+    margin-bottom: 15px;
+}
+
 @media (max-width: 600px) {
     #item-details p {
         flex-direction: column;

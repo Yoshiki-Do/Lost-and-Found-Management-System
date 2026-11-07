@@ -84,4 +84,8 @@ async function updateItemStatus(action) {
     }
 }
 
+document.getElementById("back-button").addEventListener("click", () => {
+    window.history.back();
+});
+
 loadItemDetails();
