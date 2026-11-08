@@ -1,6 +1,4 @@
 async function loadHistory() {
-    console.log("loadHistory called");
-    
     try {
         const tableBody = document.getElementById("history-table-body");
 

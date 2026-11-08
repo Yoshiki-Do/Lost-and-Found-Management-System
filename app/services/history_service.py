@@ -20,10 +20,10 @@ def get_histories(db: Session, lost_number: int) -> list[ItemHistory]:
     return (
         db.query(ItemHistory)
         .filter(ItemHistory.lost_number == lost_number)
-        .order_by(ItemHistory.created_at.desc())
+        .order_by(ItemHistory.id.desc())
         .all()
     )
 
 
 def get_all_histories(db: Session) -> list[ItemHistory]:
-    return db.query(ItemHistory).order_by(ItemHistory.created_at.desc()).all()
+    return db.query(ItemHistory).order_by(ItemHistory.id.desc()).all()
