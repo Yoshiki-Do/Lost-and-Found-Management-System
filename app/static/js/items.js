@@ -130,9 +130,9 @@ if (statusFromUrl) {
 //Load items
 loadItems();
 
-//Export items as CSV
-document.getElementById("export-csv-button").addEventListener("click", () => {
-    window.location.href = `/items/export/csv?${searchedParams.toString()}`;
+//Export items as Excel
+document.getElementById("export-excel-button").addEventListener("click", () => {
+    window.location.href = `/items/export/excel?${searchedParams.toString()}`;
 });
 
 //Reload items when returning to this page
