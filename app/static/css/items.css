@@ -115,3 +115,19 @@ tbody tr:hover {
         align-items: stretch;
     }
 }
+
+/* Status-based row colors */
+tr.status-registered {
+    background-color: white;
+    color: black;
+}
+
+tr.status-disposed {
+    background-color: #e0e0e0;
+    color: black;
+}
+
+tr.status-returned {
+    background-color: white;
+    color: blue;
+}

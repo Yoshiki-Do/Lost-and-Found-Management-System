@@ -49,6 +49,7 @@ async function loadRecentItems() {
         items.forEach(item => {
             const row = document.createElement("tr");
 
+            row.classList.add(`status-${item.status.toLowerCase()}`);
             row.style.cursor = "pointer";
 
             row.addEventListener("click", () => {
