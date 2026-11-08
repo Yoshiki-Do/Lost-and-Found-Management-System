@@ -5,6 +5,7 @@ async function loadItems() {
     try {
         const lostNumber = document.getElementById("search-lost-number").value;
         const itemName = document.getElementById("search-item-name").value;
+        const foundLocation = document.getElementById("search-found-location").value;
         const status = document.getElementById("search-status").value;
         const dateFrom = document.getElementById("search-date-from").value;
         const dateTo = document.getElementById("search-date-to").value;
@@ -27,6 +28,10 @@ async function loadItems() {
 
         if (itemName) {
             params.append("item_name", itemName);
+        }
+
+        if (foundLocation) {
+            params.append("found_location", foundLocation);
         }
 
         if (status) {
@@ -93,7 +98,7 @@ document.getElementById("search-button").addEventListener("click", loadItems);
 
 //Search when pressing Enter
 document.querySelectorAll(
-    "#search-lost-number, #search-item-name, #search-status, #search-date-from, #search-date-to"
+    "#search-lost-number, #search-item-name, #search-found-location, #search-status, #search-date-from, #search-date-to"
 ).forEach(input => {
     input.addEventListener("keydown", event => {
         if (event.key === "Enter") {
@@ -105,6 +110,7 @@ document.querySelectorAll(
 document.getElementById("reset-button").addEventListener("click", () => {
     document.getElementById("search-lost-number").value = "";
     document.getElementById("search-item-name").value = "";
+    document.getElementById.apply("search-found-location").value = "";
     document.getElementById("search-status").value = "";
     document.getElementById("search-date-from").value = "";
     document.getElementById("search-date-to").value = "";

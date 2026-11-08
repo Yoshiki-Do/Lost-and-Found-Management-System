@@ -44,6 +44,7 @@ def search_items(
     db: Session,
     lost_number: int | None = None,
     item_name: str | None = None,
+    found_location: str | None = None,
     status: str | None = None,
     storage_month: str | None = None,
     found_date_from: date | None = None,
@@ -56,6 +57,9 @@ def search_items(
 
     if item_name:
         query = query.filter(Item.item_name.ilike(f"%{item_name}%"))
+
+    if found_location:
+        query = query.filter(Item.found_location.ilike(f"%{found_location}%"))
 
     if status:
         query = query.filter(Item.status == status)
