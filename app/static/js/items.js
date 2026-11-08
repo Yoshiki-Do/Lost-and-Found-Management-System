@@ -110,7 +110,7 @@ document.querySelectorAll(
 document.getElementById("reset-button").addEventListener("click", () => {
     document.getElementById("search-lost-number").value = "";
     document.getElementById("search-item-name").value = "";
-    document.getElementById.apply("search-found-location").value = "";
+    document.getElementById("search-found-location").value = "";
     document.getElementById("search-status").value = "";
     document.getElementById("search-date-from").value = "";
     document.getElementById("search-date-to").value = "";
