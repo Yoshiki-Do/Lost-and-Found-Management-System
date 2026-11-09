@@ -107,7 +107,8 @@ document.getElementById("back-button").addEventListener("click", () => {
     if (
         returnUrl === "/" ||
         returnUrl?.startsWith("/items") ||
-        returnUrl?.startsWith("/history")
+        returnUrl?.startsWith("/history") ||
+        returnUrl?.startsWith("/bulk-disposal")
     ) {
         window.location.href = returnUrl;
     } else {

@@ -52,17 +52,18 @@ async function loadDisposalItems() {
             values.forEach((value, index) => {
                 const cell = document.createElement("td");
 
-                if (index === 0) {
-                    const link = document.createElement("a");
-                    link.href = `/details/${item.lost_number}`;
-                    link.textContent = value ?? "";
-                    cell.appendChild(link);
-                } else {
-                    cell.textContent = value ?? "";
-                }
+                cell.textContent = value ?? "";
 
                 row.appendChild(cell);
             });
+
+            row.addEventListener("click", () => {
+                const returnUrl = `bulk-disposal?storage_month=${encodeURIComponent(storageMonth)}`;
+
+                window.location.href = `details/${item.lost_number}?from=${encodeURIComponent(returnUrl)}`;
+            });
+
+            row.style.cursor = "pointer";
 
             tableBody.appendChild(row);
         });
