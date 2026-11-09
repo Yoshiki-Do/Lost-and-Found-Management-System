@@ -53,7 +53,10 @@ async function loadRecentItems() {
             row.style.cursor = "pointer";
 
             row.addEventListener("click", () => {
-                window.location.href = `/details/${item.lost_number}`;
+                const returnUrl =window.location.pathname + window.location.search;
+
+                window.location.href =
+                    `/details/${item.lost_number}?from=${encodeURIComponent(returnUrl)}`;
             });
 
             const values =[

@@ -67,7 +67,10 @@ async function loadItems() {
             row.style.cursor = "pointer";
 
             row.addEventListener("click", () => {
-                window.location.href = `/details/${item.lost_number}`;
+                const returnUrl = `/items?${searchedParams.toString()}`;
+
+                window.location.href = 
+                    `/details/${item.lost_number}?from=${encodeURIComponent(returnUrl)}`;
             });
 
             const values =[

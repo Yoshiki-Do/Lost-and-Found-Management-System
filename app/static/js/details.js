@@ -1,12 +1,19 @@
 async function updateActionButtons(status) {
     const editButton = document.getElementById("edit-button");
-
     editButton.addEventListener("click", () => {
         const lostNumber = window.location.pathname.split("/").pop();
+        const params = new URLSearchParams(window.location.search);
+        const returnUrl = params.get("from");
 
-        window.location.href = `/edit/${lostNumber}`;
-    })
-    
+        let editUrl = `/edit/${lostNumber}`;
+
+        if (returnUrl) {
+            editUrl += `?from=${encodeURIComponent(returnUrl)}`;
+        }
+
+        window.location.replace(editUrl);
+    });
+
     const returnButton = document.getElementById("return-button");
     const disposeButton = document.getElementById("dispose-button");
 
@@ -94,7 +101,18 @@ async function updateItemStatus(action) {
 }
 
 document.getElementById("back-button").addEventListener("click", () => {
-    window.history.back();
+    const params = new URLSearchParams(window.location.search);
+    const returnUrl = params.get("from");
+
+    if (
+        returnUrl === "/" ||
+        returnUrl?.startsWith("/items") ||
+        returnUrl?.startsWith("/history")
+    ) {
+        window.location.href = returnUrl;
+    } else {
+        window.history.back();
+    }
 });
 
 loadItemDetails();

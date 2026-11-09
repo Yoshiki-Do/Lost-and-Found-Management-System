@@ -1,4 +1,10 @@
 const lostNumber = window.location.pathname.split("/").pop();
+const params = new URLSearchParams(window.location.search);
+const returnUrl = params.get("from");
+
+const detailsUrl = returnUrl
+    ? `/details/${lostNumber}?from=${encodeURIComponent(returnUrl)}`
+    : `/details/${lostNumber}`;
 
 //Load existing item data
 async function loadItem() {
@@ -68,7 +74,7 @@ document.getElementById("edit-item-form").addEventListener("submit", async (even
         }
 
         alert("Item updated successfully");
-        window.location.href = `/details/${lostNumber}`;
+        window.location.replace(detailsUrl);
 
     } catch (error) {
         console.error("Update item error:", error);
@@ -78,7 +84,7 @@ document.getElementById("edit-item-form").addEventListener("submit", async (even
 
 //Cancel editing
 document.getElementById("cancel-button").addEventListener("click", () => {
-    window.location.href = `/details/${lostNumber}`;
+    window.location.replace(detailsUrl);
 });
 
 //Initial load

@@ -51,7 +51,10 @@ async function loadHistory() {
             row.style.cursor = "pointer";
 
             row.addEventListener("click", () => {
-                window.location.href = `/details/${history.lost_number}`;
+                const returnUrl = window.location.pathname + window.location.search;
+
+                window.location.href =
+                    `/details/${history.lost_number}?from=${encodeURIComponent(returnUrl)}`;
             });
 
             const values = [
