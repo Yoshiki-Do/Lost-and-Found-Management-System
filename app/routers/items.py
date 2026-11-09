@@ -9,7 +9,7 @@ from openpyxl.utils import get_column_letter
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas import ItemCreate, ItemResponse
+from app.schemas import ItemCreate, ItemUpdate, ItemResponse
 from app.services.item_service import (
     create_item,
     get_item_by_number,
@@ -17,6 +17,7 @@ from app.services.item_service import (
     dispose_item,
     dispose_items_by_month,
     search_items,
+    update_item,
 )
 
 router = APIRouter(prefix="/items", tags=["Items"])
@@ -26,6 +27,21 @@ router = APIRouter(prefix="/items", tags=["Items"])
 @router.post("/", response_model=ItemResponse)
 def register_item(item_data: ItemCreate, db: Session = Depends(get_db)):
     return create_item(db, item_data)
+
+
+# Update an existing lost item
+@router.put("/{lost_number}", response_model=ItemResponse)
+def update_lost_item(
+    lost_number: int, item_data: ItemUpdate, db: Session = Depends(get_db)
+):
+    item = update_item(db, lost_number, item_data)
+
+    if item is None:
+        raise HTTPException(
+            status_code=404, detail="Item not found or item cannot be updated"
+        )
+
+    return item
 
 
 # Export items as Excel

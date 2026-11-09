@@ -1,6 +1,7 @@
 from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict
 
+
 # Data required when registering a new item
 class ItemCreate(BaseModel):
     item_name: str
@@ -8,6 +9,15 @@ class ItemCreate(BaseModel):
     found_location: str
     found_at: date
     storage_month: str
+    storage_box: str
+
+
+# Data required when updating an existing item
+class ItemUpdate(BaseModel):
+    item_name: str
+    description: str | None = None
+    found_location: str
+    found_at: date
     storage_box: str
 
 

@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+
+{% block title %}Edit Item{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/edit.css">
+{% endblock %}
+
+{% block content %}
+
+<h2>Edit Item</h2>
+
+<div class="form-container">
+
+    <form id="edit-item-form">
+
+        <div class="form-group">
+            <label>Lost Number</label>
+            <input type="text" id="lost-number" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="item-name">Item Name</label>
+            <input type="text" id="item-name" maxlength="200" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" maxlength="200"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="found-location">Found Location</label>
+            <input type="text" id="found-location" maxlength="200" required>
+        </div>
+
+        <div class="form-group">
+            <label for="found-at">Found Date</label>
+            <input type="date" id="found-at" required>
+        </div>
+
+        <div class="form-group">
+            <label for="storage-box">Storage Box</label>
+            <input type="text" id="storage-box" maxlength="50" required>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit">Save Changes</button>
+            <button type="button" id="cancel-button">Cancel</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/edit.js"></script>
+{% endblock %}

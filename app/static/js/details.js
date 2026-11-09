@@ -1,11 +1,21 @@
 async function updateActionButtons(status) {
+    const editButton = document.getElementById("edit-button");
+
+    editButton.addEventListener("click", () => {
+        const lostNumber = window.location.pathname.split("/").pop();
+
+        window.location.href = `/edit/${lostNumber}`;
+    })
+    
     const returnButton = document.getElementById("return-button");
     const disposeButton = document.getElementById("dispose-button");
 
     if (status === "REGISTERED") {
+        editButton.style.display = "inline-block";
         returnButton.style.display = "inline-block";
         disposeButton.style.display = "inline-block";
     } else {
+        editButton.style.display = "none";
         returnButton.style.display = "none";
         disposeButton.style.display = "none";
     }

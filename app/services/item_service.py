@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models import Item, ItemHistory
-from app.schemas import ItemCreate
+from app.schemas import ItemCreate, ItemUpdate
 from app.services.number_service import get_next_lost_number
 from app.services.history_service import create_history
 from datetime import date, datetime
@@ -34,6 +34,54 @@ def create_item(db: Session, item_data: ItemCreate) -> Item:
 
 def get_item_by_number(db: Session, lost_number: int) -> Item | None:
     return db.query(Item).filter(Item.lost_number == lost_number).first()
+
+
+def update_item(db: Session, lost_number: int, item_data: ItemUpdate) -> Item | None:
+    item = get_item_by_number(db, lost_number)
+
+    if item is None or item.status != "REGISTERED":
+        return None
+
+    changed_fields = []
+
+    # Check changed fields
+    fields = {
+        "item_name": "Item Name",
+        "description": "Description",
+        "found_location": "Found Location",
+        "found_at": "Found Date",
+        "storage_box": "Storage Box",
+    }
+
+    for field, label in fields.items():
+        new_value = getattr(item_data, field)
+
+        if getattr(item, field) != new_value:
+            setattr(item, field, new_value)
+            changed_fields.append(label)
+
+    # Update storage month when found date changes
+    if "Found Date" in changed_fields:
+        item.storage_month = item.found_at.strftime("%Y-%m")
+
+    # No changes
+    if not changed_fields:
+        return item
+
+    # Create history record
+    history = ItemHistory(
+        lost_number=lost_number,
+        action="UPDATED",
+        description=f"Update fields: {', '.join(changed_fields)}",
+    )
+
+    db.add(history)
+
+    # Save item and history together
+    db.commit()
+    db.refresh(item)
+
+    return item
 
 
 def get_items(db: Session) -> list[Item]:
