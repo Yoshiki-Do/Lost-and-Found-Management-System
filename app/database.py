@@ -1,8 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
+from app.paths import DATABASE_PATH
+
 # SQL database file
-DATABASE_URL = "sqlite:///./data/lost_and_found.db"
+DATABASE_URL = f"sqlite:///{DATABASE_PATH.as_posix()}"
 
 # Create database engine
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})

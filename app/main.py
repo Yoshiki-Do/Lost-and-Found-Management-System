@@ -1,3 +1,5 @@
+import sys
+from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -5,14 +7,22 @@ from app.database import Base, engine
 from app.models import Item, ItemHistory
 from app.routers import items, history, dashboard, backup
 
+# Determine application resource directory
+if getattr(sys, "frozen", False):
+    APP_DIR = Path(sys._MEIPASS) / "app"
+else:
+    APP_DIR = Path(__file__).resolve().parent
+
+
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Lost and Found Management System")
 
-templates = Jinja2Templates(directory="app/templates")
+templates = Jinja2Templates(directory=str(APP_DIR / "templates"))
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory=str(APP_DIR / "static")), name="static")
+
 
 # Register routers
 app.include_router(items.router)

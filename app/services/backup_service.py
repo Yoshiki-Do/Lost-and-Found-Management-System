@@ -1,20 +1,19 @@
 import sqlite3
-from pathlib import Path
 from datetime import datetime
 from app.database import engine
+from app.paths import DATABASE_PATH, BACKUP_DIR
 
 
-def create_backup() -> Path:
-    # Get database file path
-    database_path = Path(engine.url.database).resolve()
+def create_backup():
+    # Database file path
+    database_path = DATABASE_PATH
 
     # Create backup directory
-    backup_dir = Path("backups")
-    backup_dir.mkdir(parents=True, exist_ok=True)
+    BACKUP_DIR.mkdir(parents=True, exist_ok=True)
 
     # Generate backup filename
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    backup_path = backup_dir / f"lost_and_found_{timestamp}.db"
+    backup_path = BACKUP_DIR / f"lost_and_found_{timestamp}.db"
 
     # Create SQLite backup
     with sqlite3.connect(database_path) as source:
@@ -24,11 +23,13 @@ def create_backup() -> Path:
     return backup_path
 
 
-def restore_backup(backup_filename: str) -> Path:
+def restore_backup(backup_filename: str):
     # Get backup directory
-    backup_dir = Path("backups").resolve()
+    backup_dir = BACKUP_DIR.resolve()
 
     # Validate backup filename
+    from pathlib import Path
+
     if Path(backup_filename).name != backup_filename:
         raise ValueError("Invalid backup filename")
 
@@ -56,10 +57,8 @@ def restore_backup(backup_filename: str) -> Path:
     engine.dispose()
 
     # Restore database
-    database_path = Path(engine.url.database).resolve()
-
     with sqlite3.connect(backup_path) as source:
-        with sqlite3.connect(database_path) as destination:
+        with sqlite3.connect(DATABASE_PATH) as destination:
             source.backup(destination)
 
     return backup_path

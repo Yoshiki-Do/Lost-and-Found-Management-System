@@ -18,3 +18,7 @@ backups/
 # IDE
 .vscode/
 .idea/
+
+build/
+dist/
+*.log

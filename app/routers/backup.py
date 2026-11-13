@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from app.services.backup_service import create_backup, restore_backup
-from pathlib import Path
+from app.paths import BACKUP_DIR
 
 router = APIRouter(prefix="/backup", tags=["Backup"])
 
@@ -28,14 +28,10 @@ class RestoreRequest(BaseModel):
 
 @router.get("/list")
 def list_backups():
-    backup_dir = Path("backups")
-
-    backup_dir.mkdir(parents=True, exist_ok=True)
-
     backups = sorted(
         [
             file.name
-            for file in backup_dir.glob("lost_and_found_*.db")
+            for file in BACKUP_DIR.glob("lost_and_found_*.db")
             if file.is_file()
         ],
         reverse=True,
