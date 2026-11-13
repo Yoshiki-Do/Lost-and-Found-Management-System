@@ -41,6 +41,7 @@ exe = EXE(
     a.datas,
     [],
     name="LostAndFound",
+    icon=str(project_dir / "app_icon.ico"),
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
